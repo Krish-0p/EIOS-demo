@@ -1,0 +1,383 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 215 45% 3%;
+    --foreground: 195 40% 96%;
+    --card: 212 50% 7%;
+    --card-foreground: 195 40% 96%;
+    --primary: 190 48% 54%;
+    --primary-foreground: 215 45% 3%;
+    --secondary: 210 40% 12%;
+    --secondary-foreground: 195 30% 90%;
+    --muted: 210 35% 14%;
+    --muted-foreground: 198 25% 65%;
+    --accent: 190 48% 54%;
+    --accent-foreground: 215 45% 3%;
+    --destructive: 351 72% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --warning: 8 82% 71%;
+    --warning-foreground: 215 45% 3%;
+    --border: 205 50% 18%;
+    --input: 205 50% 18%;
+    --ring: 190 48% 54%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 215 50% 2.5%;
+    --foreground: 195 40% 96%;
+    --card: 212 50% 6%;
+    --card-foreground: 195 40% 96%;
+    --primary: 190 48% 54%;
+    --primary-foreground: 215 50% 2.5%;
+    --secondary: 210 40% 10%;
+    --secondary-foreground: 195 30% 90%;
+    --muted: 210 35% 12%;
+    --muted-foreground: 198 25% 60%;
+    --accent: 190 48% 54%;
+    --accent-foreground: 215 50% 2.5%;
+    --destructive: 351 72% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --warning: 8 82% 71%;
+    --warning-foreground: 215 50% 2.5%;
+    --border: 205 50% 15%;
+    --input: 205 50% 15%;
+    --ring: 190 48% 54%;
+  }
+
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv02","cv03","cv04";
+    background-color: hsl(var(--background));
+    overflow: hidden;
+  }
+}
+
+/* User Color Palette Reference Tokens:
+   Blue/Teal Palette:
+     - #A7EBF2 (Ice cyan)
+     - #54ACBF (Medium ocean teal)
+     - #26658C (Steel blue)
+     - #023859 (Deep navy card surface)
+     - #011C40 (Dark midnight border / surface)
+   Green/Healthy Palette:
+     - #D1F7DE / #B5E3C8 (Pale mint)
+     - #1C5147 (Spruce green)
+     - #0B302C / #051F1C (Deep pine)
+   Warm/Alerts Palette:
+     - #FCD2B3 (Peach highlight)
+     - #F08A7C (Coral warning)
+     - #E04A5F (Crimson alert)
+*/
+
+/* Clean Themed scrollbar (No glow, solid crisp feel) */
+.scrollbar-themed {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--eios-26658c)) transparent;
+}
+
+.scrollbar-themed::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.scrollbar-themed::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-themed::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--eios-26658c));
+  border-radius: 4px;
+}
+
+.scrollbar-themed:hover::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--eios-54acbf));
+}
+
+.scrollbar-themed::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Typography tokens */
+.font-display {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.font-mono-code {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Ultra-dark solid enterprise OS background (No fake glow blobs) */
+.os-wallpaper {
+  background-color: #01040a;
+  background-image: 
+    linear-gradient(180deg, #010611 0%, #01040a 100%);
+}
+
+/* Solid high-end enterprise window (Crisp bevel, solid shadows, zero neon glow) */
+.os-window {
+  background: #020a16;
+  border: 1px solid #0f2e4a;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(167, 235, 242, 0.08);
+  border-radius: 10px;
+}
+
+/* Solid Card Surface from Palette (#023859 / #011C40) */
+.os-glass-card {
+  background: #021424;
+  border: 1px solid #0b2f4a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.os-glass-card:hover {
+  border-color: #26658c;
+  background: #031b30;
+}
+
+/* Realistic Icon Container Base (Skeuomorphic depth, realistic shadow, solid border) */
+.realistic-icon-plate {
+  position: relative;
+  background: linear-gradient(180deg, #09253d 0%, #031424 100%);
+  border: 1px solid #14446b;
+  box-shadow: 
+    0 4px 10px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.realistic-icon-plate:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 14px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(167, 235, 242, 0.3),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.5);
+  border-color: #26658c;
+}
+
+/* Shared colors bridge the existing EIOS surfaces and semantic components.
+   Dark values preserve the original palette; light values retain teal identity. */
+:root {
+  --eios-01040a: 1 4 10;
+  --eios-text-slate-100: 241 245 249;
+  --eios-text-white: 255 255 255;
+  --eios-091426: 9 20 38;
+  --eios-030712: 3 7 18;
+  --eios-070e1c: 7 14 28;
+  --eios-text-purple-300: 216 180 254;
+  --eios-text-slate-400: 148 163 184;
+  --eios-text-purple-400: 192 132 252;
+  --eios-text-sky-200: 186 230 253;
+  --eios-text-slate-200: 226 232 240;
+  --eios-surface-slate-900: 15 23 42;
+  --eios-contrast: 255 255 255;
+  --eios-26658c: 38 101 140;
+  --eios-010814: 1 8 20;
+  --eios-0d2e49: 13 46 73;
+  --eios-021424: 2 20 36;
+  --eios-02243d: 2 36 61;
+  --eios-54acbf: 84 172 191;
+  --eios-032a47: 3 42 71;
+  --eios-a7ebf2: 167 235 242;
+  --eios-031d33: 3 29 51;
+  --eios-010c18: 1 12 24;
+  --eios-042845: 4 40 69;
+  --eios-021324: 2 19 36;
+  --eios-f08a7c: 240 138 124;
+  --eios-023859: 2 56 89;
+  --eios-010e1c: 1 14 28;
+  --eios-021020: 2 16 32;
+  --eios-010a16: 1 10 22;
+  --eios-03182b: 3 24 43;
+  --eios-034975: 3 73 117;
+  --eios-010914: 1 9 20;
+  --eios-b5e3c8: 181 227 200;
+  --eios-125178: 18 81 120;
+  --eios-021526: 2 21 38;
+  --eios-text-slate-300: 203 213 225;
+  --eios-text-emerald-300: 110 231 183;
+  --eios-text-slate-500: 100 116 139;
+  --eios-text-emerald-400: 52 211 153;
+  --eios-text-yellow-300: 253 224 71;
+  --eios-surface-rose-900: 136 19 55;
+  --eios-surface-emerald-950: 2 44 34;
+  --eios-surface-yellow-950: 66 32 6;
+  --eios-surface-emerald-800: 6 95 70;
+  --eios-02050c: 2 5 12;
+  --eios-050b18: 5 11 24;
+  --eios-text-cyan-400: 34 211 238;
+  --eios-text-cyan-300: 103 232 249;
+  --eios-010610: 1 6 16;
+  --eios-021f36: 2 31 54;
+  --eios-033457: 3 52 87;
+  --eios-124164: 18 65 100;
+  --eios-041a2e: 4 26 46;
+  --eios-14476e: 20 71 110;
+  --eios-text-rose-300: 253 164 175;
+  --eios-surface-rose-950: 76 5 25;
+  --eios-e04a5f: 224 74 95;
+  --eios-1c5147: 28 81 71;
+  --eios-0b302c: 11 48 44;
+  --eios-051f1c: 5 31 28;
+  --eios-d1f7de: 209 247 222;
+  --eios-6eaa90: 110 170 144;
+  --eios-17486e: 23 72 110;
+  --eios-011428: 1 20 40;
+  --eios-021b2e: 2 27 46;
+  --eios-0a3252: 10 50 82;
+  --eios-2b1614: 43 22 20;
+  --eios-fcd2b3: 252 210 179;
+  --eios-3d1e1c: 61 30 28;
+  --eios-032d4e: 3 45 78;
+  --eios-0d3454: 13 52 84;
+  --eios-2b1216: 43 18 22;
+  --eios-050b16: 5 11 22;
+  --eios-surface-cyan-950: 8 51 68;
+  --eios-041c30: 4 28 48;
+  --eios-072c4c: 7 44 76;
+  --eios-02182b: 2 24 43;
+  --eios-text-rose-200: 254 205 211;
+  --eios-text-rose-400: 251 113 133;
+  --eios-text-sky-400: 56 189 248;
+  --eios-text-amber-300: 252 211 77;
+  --eios-surface-amber-950: 69 26 3;
+  --eios-text-slate-600: 71 85 105;
+}
+:root:not(.dark) {
+  --eios-01040a: 245 248 251;
+  --eios-text-slate-100: 15 23 42;
+  --eios-text-white: 21 46 67;
+  --eios-091426: 255 255 255;
+  --eios-030712: 245 248 251;
+  --eios-070e1c: 255 255 255;
+  --eios-text-purple-300: 126 34 206;
+  --eios-text-slate-400: 51 65 85;
+  --eios-text-purple-400: 126 34 206;
+  --eios-text-sky-200: 3 105 161;
+  --eios-text-slate-200: 15 23 42;
+  --eios-surface-slate-900: 248 250 252;
+  --eios-contrast: 21 46 67;
+  --eios-26658c: 55 113 142;
+  --eios-010814: 245 248 251;
+  --eios-0d2e49: 220 234 243;
+  --eios-021424: 255 255 255;
+  --eios-02243d: 234 241 246;
+  --eios-54acbf: 35 111 131;
+  --eios-032a47: 220 234 243;
+  --eios-a7ebf2: 23 81 109;
+  --eios-031d33: 234 241 246;
+  --eios-010c18: 245 248 251;
+  --eios-042845: 220 234 243;
+  --eios-021324: 255 255 255;
+  --eios-f08a7c: 162 62 54;
+  --eios-023859: 220 234 243;
+  --eios-010e1c: 255 255 255;
+  --eios-021020: 255 255 255;
+  --eios-010a16: 245 248 251;
+  --eios-03182b: 255 255 255;
+  --eios-034975: 197 220 233;
+  --eios-010914: 245 248 251;
+  --eios-b5e3c8: 33 96 75;
+  --eios-125178: 197 220 233;
+  --eios-021526: 255 255 255;
+  --eios-text-slate-300: 51 65 85;
+  --eios-text-emerald-300: 4 120 87;
+  --eios-text-slate-500: 71 85 105;
+  --eios-text-emerald-400: 4 120 87;
+  --eios-text-yellow-300: 161 98 7;
+  --eios-surface-rose-900: 255 241 242;
+  --eios-surface-emerald-950: 236 253 245;
+  --eios-surface-yellow-950: 254 252 232;
+  --eios-surface-emerald-800: 167 243 208;
+  --eios-02050c: 245 248 251;
+  --eios-050b18: 245 248 251;
+  --eios-text-cyan-400: 14 116 144;
+  --eios-text-cyan-300: 14 116 144;
+  --eios-010610: 245 248 251;
+  --eios-021f36: 234 241 246;
+  --eios-033457: 220 234 243;
+  --eios-124164: 197 220 233;
+  --eios-041a2e: 234 241 246;
+  --eios-14476e: 197 220 233;
+  --eios-text-rose-300: 190 18 60;
+  --eios-surface-rose-950: 255 241 242;
+  --eios-e04a5f: 194 45 67;
+  --eios-1c5147: 226 242 233;
+  --eios-0b302c: 226 242 233;
+  --eios-051f1c: 226 242 233;
+  --eios-d1f7de: 21 84 60;
+  --eios-6eaa90: 39 115 83;
+  --eios-17486e: 197 220 233;
+  --eios-011428: 255 255 255;
+  --eios-021b2e: 234 241 246;
+  --eios-0a3252: 220 234 243;
+  --eios-2b1614: 251 232 229;
+  --eios-fcd2b3: 140 69 22;
+  --eios-3d1e1c: 251 232 229;
+  --eios-032d4e: 220 234 243;
+  --eios-0d3454: 220 234 243;
+  --eios-2b1216: 251 232 229;
+  --eios-050b16: 245 248 251;
+  --eios-surface-cyan-950: 236 254 255;
+  --eios-041c30: 234 241 246;
+  --eios-072c4c: 220 234 243;
+  --eios-02182b: 255 255 255;
+  --eios-text-rose-200: 190 18 60;
+  --eios-text-rose-400: 190 18 60;
+  --eios-text-sky-400: 3 105 161;
+  --eios-text-amber-300: 180 83 9;
+  --eios-surface-amber-950: 255 251 235;
+  --eios-text-slate-600: 71 85 105;
+  --background: 210 43% 97%;
+  --foreground: 208 51% 17%;
+  --card: 0 0% 100%;
+  --card-foreground: 208 51% 17%;
+  --primary: 193 57% 30%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 207 38% 93%;
+  --secondary-foreground: 208 51% 17%;
+  --muted: 207 33% 94%;
+  --muted-foreground: 208 23% 37%;
+  --accent: 194 45% 90%;
+  --accent-foreground: 208 51% 17%;
+  --destructive: 351 62% 43%;
+  --destructive-foreground: 0 0% 100%;
+  --warning: 18 66% 35%;
+  --warning-foreground: 0 0% 100%;
+  --border: 207 27% 78%;
+  --input: 207 27% 78%;
+  --ring: 193 57% 30%;
+}
+:root:not(.dark) .os-wallpaper {
+  background: linear-gradient(180deg, #edf4f9 0%, #f5f8fb 100%);
+}
+:root:not(.dark) .os-window {
+  background: #ffffff;
+  border-color: #b8cedd;
+  box-shadow: 0 16px 40px rgb(21 46 67 / 0.12), inset 0 1px 0 rgb(255 255 255 / 0.8);
+}
+:root:not(.dark) .os-glass-card {
+  background: #ffffff;
+  border-color: #c5d7e4;
+  box-shadow: 0 4px 12px rgb(21 46 67 / 0.08);
+}
+:root:not(.dark) .os-glass-card:hover { background: #edf4f9; border-color: #37718e; }
+:root:not(.dark) .realistic-icon-plate {
+  background: linear-gradient(180deg, #f8fbfd, #e5eff6);
+  border-color: #b8cedd;
+  box-shadow: 0 4px 10px rgb(21 46 67 / 0.1), inset 0 1px 0 #ffffff;
+}
+:root:not(.dark) .realistic-icon-plate:hover { box-shadow: 0 6px 14px rgb(21 46 67 / 0.15); }
+/* White labels on saturated assistant controls must remain white. */
+:root:not(.dark) [class*="from-purple-"] { color: #ffffff; }
+:root:not(.dark) [class*="from-purple-"] svg { color: #ffffff; }
+:root:not(.dark) [class*="shadow-["] { box-shadow: 0 6px 22px rgb(21 46 67 / 0.12); }
+/* Reserve the global theme button's corner when a window is maximized. */
+.os-window.fixed > :first-child { padding-right: 3.5rem; }

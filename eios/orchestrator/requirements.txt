@@ -1,0 +1,9 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+psycopg[binary,pool]==3.2.3
+confluent-kafka==2.6.1
+pydantic==2.10.4
+httpx==0.28.1
+psutil>=5.9.0
+docker>=7.0.0
+kubernetes>=29.0.0

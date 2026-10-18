@@ -1,0 +1,100 @@
+# EIOS Docker Compose security overlay — apply on top of compose.eios.yaml
+# Usage:
+#   docker compose --env-file .env \
+#     -f ../opentelemetry-demo/compose.yaml \
+#     -f ../opentelemetry-demo/compose.full.yaml \
+#     -f ../opentelemetry-demo/compose.observability.yaml \
+#     -f compose.eios.yaml \
+#     -f compose.eios.security.yaml up -d
+
+services:
+
+  eios-postgres:
+    environment:
+      - POSTGRES_PASSWORD=${EIOS_POSTGRES_PASSWORD}
+      - POSTGRES_USER=eios
+      - POSTGRES_DB=eios
+    ports: []          # remove public 5433 binding
+    expose:
+      - "5432"
+    security_opt:
+      - no-new-privileges:true
+    user: postgres
+
+  eios-ingest:
+    environment:
+      - EIOS_POSTGRES_DSN=postgresql://eios:${EIOS_POSTGRES_PASSWORD}@eios-postgres:5432/eios
+      - EIOS_REDACTION_ENABLED=true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:mode=1777,size=32m
+    deploy:
+      resources:
+        limits:
+          memory: 250M
+          cpus: "0.50"
+
+  eios-detect:
+    environment:
+      - EIOS_POSTGRES_DSN=postgresql://eios:${EIOS_POSTGRES_PASSWORD}@eios-postgres:5432/eios
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:mode=1777,size=32m
+    deploy:
+      resources:
+        limits:
+          memory: 250M
+          cpus: "0.50"
+
+  eios-intelligence:
+    environment:
+      - EIOS_POSTGRES_DSN=postgresql://eios:${EIOS_POSTGRES_PASSWORD}@eios-postgres:5432/eios
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:mode=1777,size=32m
+
+  eios-orchestrator:
+    environment:
+      - EIOS_POSTGRES_DSN=postgresql://eios:${EIOS_POSTGRES_PASSWORD}@eios-postgres:5432/eios
+      - EIOS_API_KEY=${EIOS_API_KEY}
+      - EIOS_CORS_ORIGINS=${EIOS_CORS_ORIGINS:-http://localhost:5173}
+      - EIOS_RATE_LIMIT_REQUESTS=${EIOS_RATE_LIMIT_REQUESTS:-200}
+      - EIOS_RATE_LIMIT_WINDOW=${EIOS_RATE_LIMIT_WINDOW:-60}
+      - EIOS_REDACTION_ENABLED=true
+      - EIOS_AUDIT_INTEGRITY_ENABLED=true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+          cpus: "0.75"
+
+  eios-dashboard:
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    deploy:
+      resources:
+        limits:
+          memory: 150M
+          cpus: "0.25"

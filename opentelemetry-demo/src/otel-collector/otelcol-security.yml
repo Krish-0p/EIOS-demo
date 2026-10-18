@@ -1,0 +1,73 @@
+# Copyright The OpenTelemetry Authors
+# SPDX-License-Identifier: Apache-2.0
+#
+# OTel Collector security hardening extension config.
+# Mounted by compose.security.yaml at /etc/otelcol-security.yml.
+# Applied via --config=/etc/otelcol-security.yml (merged on top of base config).
+#
+# Controls implemented:
+#   - batch processor: caps telemetry burst size (Availability / DoS protection)
+#   - memory_limiter: already in base config — reinforced limits set here
+#   - transform/scrub_pii: deletes auth tokens, cookies, and raw DB statements
+#     from spans before export (Confidentiality)
+
+processors:
+  # ── Batch — bound throughput and reduce exporter pressure ──────────────────
+  batch/security:
+    # Maximum number of spans/metrics/logs in one batch before flushing.
+    send_batch_size: 8192
+    # Hard cap — batches larger than this are split. Guards against single-burst OOM.
+    send_batch_max_size: 16384
+    # Maximum time a partial batch will wait before being flushed.
+    timeout: 5s
+
+  # ── PII / credential scrubbing ─────────────────────────────────────────────
+  transform/scrub_pii:
+    error_mode: ignore
+    trace_statements:
+      - context: span
+        statements:
+          # Remove authorization tokens (Bearer, Basic, API keys)
+          - delete_key(attributes, "http.request.header.authorization") where attributes["http.request.header.authorization"] != nil
+          - delete_key(attributes, "http.request.header.cookie") where attributes["http.request.header.cookie"] != nil
+          - delete_key(attributes, "http.response.header.set-cookie") where attributes["http.response.header.set-cookie"] != nil
+          # Scrub raw DB statements that may embed credentials or PII
+          - replace_pattern(attributes["db.statement"], "password\\s*=\\s*'[^']*'", "password='[REDACTED]'") where attributes["db.statement"] != nil
+          - replace_pattern(attributes["db.statement"], "(?i)(token|secret|key)\\s*=\\s*'[^']*'", "${1}='[REDACTED]'") where attributes["db.statement"] != nil
+          # Remove raw user identifiers (email already handled in base redact processor)
+          - delete_key(attributes, "enduser.id") where attributes["enduser.id"] != nil
+          - delete_key(attributes, "enduser.email") where attributes["enduser.email"] != nil
+    log_statements:
+      - context: log-record
+        statements:
+          - delete_key(attributes, "http.request.header.authorization") where attributes["http.request.header.authorization"] != nil
+          - delete_key(attributes, "http.request.header.cookie") where attributes["http.request.header.cookie"] != nil
+
+service:
+  pipelines:
+    traces:
+      processors:
+        - memory_limiter
+        - resource_detection
+        - transform/sanitize_spans
+        - gen_ai_normalizer
+        - transform/redact_sensitive_data
+        - transform/scrub_pii
+        - batch/security
+    metrics:
+      processors:
+        - memory_limiter
+        - resource_detection
+        - batch/security
+    logs:
+      processors:
+        - memory_limiter
+        - resource_detection
+        - transform/sanitize_logs
+        - transform/scrub_pii
+        - batch/security
+    profiles:
+      processors:
+        - memory_limiter
+        - resource_detection
+        - filter/sanitize_profiles

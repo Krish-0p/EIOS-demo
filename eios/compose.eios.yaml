@@ -1,0 +1,216 @@
+# EIOS layer. Passed as a fourth -f after the demo's own compose files, so no
+# upstream file is ever edited and `git pull` on the demo stays conflict free.
+#
+# Usage, from the opentelemetry-demo directory:
+#   docker compose -f compose.yaml -f compose.full.yaml \
+#                  -f compose.observability.yaml -f ../eios/compose.eios.yaml up -d
+#
+# Build contexts are relative to the demo directory, since compose resolves
+# paths against the first -f file.
+
+x-eios-logging: &logging
+  driver: "json-file"
+  options:
+    max-size: "5m"
+    max-file: "2"
+
+services:
+
+  eios-postgres:
+    image: postgres:17-alpine
+    container_name: eios-postgres
+    environment:
+      - POSTGRES_USER=eios
+      - POSTGRES_PASSWORD=eios
+      - POSTGRES_DB=eios
+    volumes:
+      - eios-pgdata:/var/lib/postgresql/data
+      - ../eios/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U eios -d eios"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+    logging: *logging
+
+  eios-ingest:
+    build:
+      context: ../eios
+      dockerfile: ingest/Dockerfile
+    container_name: eios-ingest
+    environment:
+      - KAFKA_ADDR=kafka:9092
+      - KAFKA_TOPIC=orders
+      - EIOS_EVENTS_TOPIC=eios.events
+      - EIOS_CONSUMER_GROUP=eios-ingest
+      - PROMETHEUS_URL=http://prometheus:9090
+      - EIOS_PROM_POLL_SECONDS=30
+      - EIOS_POSTGRES_DSN=postgresql://eios:eios@eios-postgres:5432/eios
+      - EIOS_LOG_LEVEL=INFO
+    depends_on:
+      eios-orchestrator:
+        condition: service_healthy
+      eios-postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 250M
+    logging: *logging
+
+  eios-detect:
+    build:
+      context: ../eios
+      dockerfile: detect/Dockerfile
+    container_name: eios-detect
+    environment:
+      - KAFKA_ADDR=kafka:9092
+      - EIOS_EVENTS_TOPIC=eios.events
+      - EIOS_INCIDENTS_TOPIC=eios.incidents
+      - EIOS_DETECT_GROUP=eios-detect
+      - EIOS_POSTGRES_DSN=postgresql://eios:eios@eios-postgres:5432/eios
+      - EIOS_EVAL_SECONDS=30
+      - EIOS_COOLDOWN_SECONDS=180
+      - EIOS_LOG_LEVEL=INFO
+    depends_on:
+      eios-postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 250M
+    logging: *logging
+
+  eios-intelligence:
+    build:
+      context: ../eios
+      dockerfile: intelligence/Dockerfile
+    container_name: eios-intelligence
+    environment:
+      - KAFKA_ADDR=kafka:9092
+      - EIOS_POSTGRES_DSN=postgresql://eios:eios@eios-postgres:5432/eios
+      - EIOS_INTELLIGENCE_EVAL_SECONDS=30
+      - EIOS_INTELLIGENCE_LATENESS_SECONDS=90
+      - JAEGER_URL=http://jaeger:16686
+      - EIOS_MODEL_DIR=/models
+      - EIOS_LOG_LEVEL=INFO
+    volumes:
+      - eios-models:/models
+    depends_on:
+      eios-orchestrator:
+        condition: service_healthy
+      eios-postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-m", "intelligence.health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 60s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 450M
+          cpus: '1.0'
+    logging: *logging
+
+  eios-orchestrator:
+    build:
+      context: ../eios
+      dockerfile: orchestrator/Dockerfile
+    container_name: eios-orchestrator
+    environment:
+      - KAFKA_ADDR=kafka:9092
+      - EIOS_INCIDENTS_TOPIC=eios.incidents
+      - EIOS_ORCH_GROUP=eios-orchestrator
+      - EIOS_POSTGRES_DSN=postgresql://eios:eios@eios-postgres:5432/eios
+      - EIOS_LOG_LEVEL=INFO
+      - FLAGD_CONFIG=/etc/flagd/demo.flagd.json
+      # Service health and topology. Prometheus carries the span_metrics RED
+      # figures and docker_stats; Jaeger derives the call graph from traces.
+      - PROMETHEUS_URL=http://prometheus:9090
+      - JAEGER_URL=http://jaeger:16686
+      # Browser-facing, for the per-service trace links.
+      - OPENSEARCH_URL=http://opensearch:9200
+      - JAEGER_UI_URL=http://127.0.0.1:8080/jaeger/ui
+      - EIOS_HEALTH_WINDOW=5m
+      - EIOS_WORKSPACE_ROOT=/workspace/eios
+      - EIOS_SESSION_SECONDS=${EIOS_SESSION_SECONDS:-43200}
+      - EIOS_COOKIE_SECURE=${EIOS_COOKIE_SECURE:-false}
+      - EIOS_INVESTIGATION_URL=${EIOS_INVESTIGATION_URL:-}
+      - EIOS_INVESTIGATION_MODEL=${EIOS_INVESTIGATION_MODEL:-}
+      - EIOS_INVESTIGATION_PROVIDER=${EIOS_INVESTIGATION_PROVIDER:-auto}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - EIOS_VERIFICATION_SECONDS=${EIOS_VERIFICATION_SECONDS:-600}
+      - EIOS_LOCUST_URL=${EIOS_LOCUST_URL:-}
+      - EIOS_MACHINE_ROLE=${EIOS_MACHINE_ROLE:-viewer}
+      - EIOS_ENABLE_ADMIN_WORKSPACE=${EIOS_ENABLE_ADMIN_WORKSPACE:-false}
+      - EIOS_ENABLE_ADMIN_TERMINAL=${EIOS_ENABLE_ADMIN_TERMINAL:-true}
+      - EIOS_RATE_LIMIT_REQUESTS=${EIOS_RATE_LIMIT_REQUESTS:-200}
+      - EIOS_RATE_LIMIT_WINDOW=${EIOS_RATE_LIMIT_WINDOW:-60}
+      - EIOS_DEMO_COMPOSE_PROJECT=${EIOS_DEMO_COMPOSE_PROJECT:-opentelemetry-demo}
+    volumes:
+      # Read-write: the orchestrator flips flags to inject faults, so a fault
+      # window and the flag that caused it are recorded in one action.
+      - ../opentelemetry-demo/src/flagd:/etc/flagd
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../eios:/workspace/eios:ro
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/auth/status',timeout=5)"]
+      interval: 10s
+      timeout: 6s
+      start_period: 90s
+      retries: 6
+    depends_on:
+      eios-postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+    logging: *logging
+
+  eios-dashboard:
+    build:
+      context: ../eios
+      dockerfile: dashboard/Dockerfile
+      args:
+        # Same-origin proxy keeps browser sessions on the dashboard host.
+        VITE_API_BASE: ""
+    environment:
+      - EIOS_API_UPSTREAM=http://eios-orchestrator:8000
+    container_name: eios-dashboard
+    ports:
+      - "5173:5173"
+    depends_on:
+      - eios-orchestrator
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 150M
+    logging: *logging
+
+volumes:
+  eios-pgdata:
+  eios-models:

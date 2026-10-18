@@ -1,0 +1,258 @@
+# Copyright The OpenTelemetry Authors
+# SPDX-License-Identifier: Apache-2.0
+#
+# Security hardening overlay — CIA Triad controls.
+# Apply with:
+#   docker compose -f compose.yaml -f compose.full.yaml -f compose.observability.yaml -f compose.security.yaml up
+#
+# This file is ADDITIVE ONLY — it never removes keys from the base compose.yaml.
+
+# ─── Reusable anchors ────────────────────────────────────────────────────────
+x-security-defaults: &security-defaults
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+
+x-security-web: &security-web
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+  cap_add:
+    - NET_BIND_SERVICE
+
+x-readonly-tmp: &readonly-tmp
+  read_only: true
+  tmpfs:
+    - /tmp:mode=1777,size=64m
+
+# ─── Services ────────────────────────────────────────────────────────────────
+services:
+
+  # ── Kafka — longer start_period for JVM startup (~90s) ────────────────────
+  kafka:
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 9092"]
+      interval: 10s
+      timeout: 10s
+      retries: 15
+      start_period: 90s
+
+  # ── AdService ──────────────────────────────────────────────────────────────
+  ad:
+    <<: [*security-defaults, *readonly-tmp]
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+          cpus: "0.50"
+
+  # ── Cart ───────────────────────────────────────────────────────────────────
+  cart:
+    <<: [*security-defaults, *readonly-tmp]
+    deploy:
+      resources:
+        limits:
+          memory: 160M
+          cpus: "0.25"
+
+  # ── Checkout ───────────────────────────────────────────────────────────────
+  checkout:
+    <<: *security-defaults
+    healthcheck:
+      test: ["CMD", "/bin/grpc_health_probe", "-addr=:5050", "-connect-timeout=10s", "-rpc-timeout=10s"]
+      interval: 15s
+      timeout: 15s
+      start_period: 30s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 20M
+          cpus: "0.25"
+
+  # ── Currency ───────────────────────────────────────────────────────────────
+  currency:
+    <<: [*security-defaults, *readonly-tmp]
+    deploy:
+      resources:
+        limits:
+          memory: 20M
+          cpus: "0.25"
+
+  # ── Email ──────────────────────────────────────────────────────────────────
+  email:
+    <<: [*security-defaults, *readonly-tmp]
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+          cpus: "0.25"
+
+  # ── Frontend ───────────────────────────────────────────────────────────────
+  frontend:
+    <<: [*security-defaults, *readonly-tmp]
+    deploy:
+      resources:
+        limits:
+          memory: 250M
+          cpus: "0.50"
+
+  # ── Frontend Proxy (Envoy) ─────────────────────────────────────────────────
+  # Needs NET_BIND_SERVICE for port 8080; admin port locked to loopback via env.
+  frontend-proxy:
+    <<: *security-web
+    environment:
+      - ENVOY_ADMIN_ADDR=127.0.0.1
+    ports:
+      # Expose only the public traffic port; admin (10000) stays loopback-only.
+      - "${ENVOY_PORT}:${ENVOY_PORT}"
+    deploy:
+      resources:
+        limits:
+          memory: 90M
+          cpus: "0.50"
+
+  # ── Image Provider ─────────────────────────────────────────────────────────
+  image-provider:
+    <<: [*security-defaults, *readonly-tmp]
+    deploy:
+      resources:
+        limits:
+          memory: 120M
+          cpus: "0.25"
+
+  # ── Load Generator ─────────────────────────────────────────────────────────
+  load-generator:
+    <<: [*security-defaults, *readonly-tmp]
+    deploy:
+      resources:
+        limits:
+          memory: 1500M
+          cpus: "1.00"
+
+  # ── Product Catalog ────────────────────────────────────────────────────────
+  # read_only + tmpfs already in base.
+  product-catalog:
+    <<: *security-defaults
+    environment:
+      # Upgrade DB connection to require TLS (set POSTGRES_SSLMODE in .env.security)
+      - DB_CONNECTION_STRING=postgres://astronomy_user:${POSTGRES_ASTRONOMY_PASSWORD}@${POSTGRES_HOST}/astronomy_db?sslmode=${POSTGRES_SSLMODE:-prefer}
+    deploy:
+      resources:
+        limits:
+          memory: 20M
+          cpus: "0.25"
+
+  # ── Quote ──────────────────────────────────────────────────────────────────
+  quote:
+    <<: [*security-defaults, *readonly-tmp]
+    deploy:
+      resources:
+        limits:
+          memory: 40M
+          cpus: "0.25"
+
+  # ── Recommendation ─────────────────────────────────────────────────────────
+  recommendation:
+    <<: [*security-defaults, *readonly-tmp]
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+          cpus: "0.50"
+
+  # ── Shipping ───────────────────────────────────────────────────────────────
+  # read_only + tmpfs already in base.
+  shipping:
+    <<: *security-defaults
+    deploy:
+      resources:
+        limits:
+          memory: 20M
+          cpus: "0.25"
+
+  # ── Flagd ──────────────────────────────────────────────────────────────────
+  flagd:
+    <<: [*security-defaults, *readonly-tmp]
+    deploy:
+      resources:
+        limits:
+          memory: 75M
+          cpus: "0.25"
+
+  # ── Flagd UI ───────────────────────────────────────────────────────────────
+  flagd-ui:
+    <<: [*security-defaults, *readonly-tmp]
+    # SECRET_KEY_BASE sourced from file to avoid exposure in `docker inspect`.
+    # Create: printf '%s' "$(openssl rand -hex 64)" > /run/secrets/secret_key_base
+    environment:
+      - SECRET_KEY_BASE_FILE=/run/secrets/secret_key_base
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+          cpus: "0.25"
+
+  # ── Telemetry Docs ─────────────────────────────────────────────────────────
+  telemetry-docs:
+    <<: [*security-defaults, *readonly-tmp]
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+          cpus: "0.25"
+
+  # ── PostgreSQL (astronomy-db) ──────────────────────────────────────────────
+  # Remove the host port binding so DB is not reachable from outside Docker network.
+  astronomy-db:
+    ports: !reset []
+    expose:
+      - "${POSTGRES_PORT}"
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: "0.50"
+
+  # ── Valkey/Redis (valkey-cart) ─────────────────────────────────────────────
+  valkey-cart:
+    <<: *security-defaults
+    ports: !reset []
+    expose:
+      - "${VALKEY_PORT}"
+    command:
+      - valkey-server
+      - --save ""
+      - --loglevel notice
+      - --protected-mode yes
+    deploy:
+      resources:
+        limits:
+          memory: 20M
+          cpus: "0.10"
+
+  # ── OTel Collector ─────────────────────────────────────────────────────────
+  # Drop root; use nobody (65534) — still mounts docker.sock read-only.
+  otel-collector:
+    <<: *security-defaults
+    user: "65534:65534"
+    command:
+      - --config=/etc/otelcol-config.yml
+      - --config=/etc/otelcol-config-extras.yml
+      - --config=/etc/otelcol-security.yml
+      - --feature-gates=service.profilesSupport
+    volumes:
+      - ${HOST_FILESYSTEM}:/hostfs:ro
+      - ${DOCKER_SOCK}:/var/run/docker.sock:ro
+      - ${OTEL_COLLECTOR_CONFIG}:/etc/otelcol-config.yml:ro
+      - ${OTEL_COLLECTOR_CONFIG_EXTRAS}:/etc/otelcol-config-extras.yml:ro
+      - ./src/otel-collector/otelcol-security.yml:/etc/otelcol-security.yml:ro
+    deploy:
+      resources:
+        limits:
+          memory: 400M
+          cpus: "1.00"

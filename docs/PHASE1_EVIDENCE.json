@@ -1,0 +1,146 @@
+{
+  "date": "2026-10-18",
+  "phase": "Phase 1",
+  "migration": {
+    "migration_seconds": 51.73,
+    "history": {
+      "events": {
+        "rows": 86636,
+        "identity_digest": "e2ffdb59304cd996752462cc89cf288bb5e7c55b768cf5913d1e414aafcc5402"
+      },
+      "incidents": {
+        "rows": 1323,
+        "identity_digest": "e8368e55b3ab53231fedf12a8fc3a63a8554a690ea88fdf4674ce72e45b335d8"
+      },
+      "cases": {
+        "rows": 66,
+        "identity_digest": "75de41aa5f41303202bf2af6f28abdf8c8addffd8156ba734e6b0b2bfacf38ec"
+      },
+      "approvals": {
+        "rows": 0,
+        "identity_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "fault_windows": {
+        "rows": 22,
+        "identity_digest": "6eda5703b456637a05ad68624fc527a7a7104fd13a1e0c9142611931b6b5e249"
+      },
+      "intelligence_insights": {
+        "rows": 1099,
+        "identity_digest": "ffcb29d845dc6b6e4d800b57bac9315252e0caf100af746757313abf9825627c"
+      },
+      "intelligence_forecasts": {
+        "rows": 20066,
+        "identity_digest": "fb761d000f814f64182da17fa6568d6ec466e35b42423bf35677cd67c5f3a660"
+      },
+      "model_registry": {
+        "rows": 0,
+        "identity_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "evaluation_runs": {
+        "rows": 0,
+        "identity_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "feature_windows": {
+        "rows": 10101,
+        "identity_digest": "d3b6c397627336812f702ed0e4c8c6a4f36e048e44bdfd8995865f05b6ffb7ac"
+      }
+    },
+    "all_ids_preserved": true,
+    "unassigned_history": {
+      "events": 0,
+      "incidents": 0,
+      "cases": 0,
+      "feature_windows": 0,
+      "model_registry": 0,
+      "intelligence_insights": 0,
+      "intelligence_forecasts": 0,
+      "evaluation_runs": 0
+    }
+  },
+  "authentication": {
+    "username": "admin",
+    "role": "administrator"
+  },
+  "security_checks": {
+    "anonymous_api_status": 401,
+    "wrong_password_status": 401,
+    "http_only_cookie": true,
+    "no_token_in_body": true,
+    "replayed_cookie_status": 401,
+    "revoked_websocket_close_code": 1008
+  },
+  "initial_totals": {
+    "events": 87219,
+    "incidents": 1344,
+    "open_faults": 0
+  },
+  "final_totals": {
+    "events": 88304,
+    "incidents": 1374,
+    "open_faults": 0
+  },
+  "default_application_id": "6b42866e-e214-57e4-a7bd-e0ce18ade732",
+  "default_registered_services": 51,
+  "additional_application": {
+    "application_id": "15a91729-4ab0-4a45-9ba6-629270c93328",
+    "name": "EIOS Platform",
+    "discovery": {
+      "status": "discovered",
+      "matched_containers": 2,
+      "application_id": "15a91729-4ab0-4a45-9ba6-629270c93328"
+    },
+    "services": [
+      {
+        "name": "eios-dashboard",
+        "service_id": "7b291c9d-f8f0-5f5c-a890-f15dd52d4e6a"
+      },
+      {
+        "name": "eios-orchestrator",
+        "service_id": "373d45e3-b89e-57be-89a7-97ac7e214441"
+      }
+    ]
+  },
+  "session_and_catalog_survived_restart": true,
+  "controlled_stop": {
+    "service": "email",
+    "service_id": "156ceb2a-1d7e-5186-a255-7e0c0c4b7e2f",
+    "container_id": "4a5b50119a01da083271b7083e64e350aa12483abb8e4da0297266814f18ae74",
+    "window_id": "714c9781-4925-471a-b912-620d5c97b0a7",
+    "start_time": "2026-10-18T12:13:20.833940+00:00",
+    "offline_observed_at": "2026-10-18T12:13:25.180382+00:00",
+    "offline_runtime_state": "offline",
+    "offline_telemetry_state": "fresh",
+    "end_time": "2026-10-18T12:13:25.668872+00:00",
+    "recovered_runtime_state": "online",
+    "runtime_recovered_at": "2026-10-18T12:13:29.185724+00:00",
+    "telemetry_recovered_at": "2026-10-18T12:17:09.644000+00:00",
+    "recovered_telemetry_state": "fresh"
+  },
+  "websocket": {
+    "verified_at": "2026-10-18T12:17:47.854515+00:00",
+    "message_type": "intelligence"
+  },
+  "legacy_services": 37,
+  "legacy_topology": {
+    "available": true,
+    "edges": 23
+  },
+  "examples": {
+    "event_id": "10270d59-8a1e-4ea1-af1a-8a43539d7c00",
+    "detector": "kpi:memory_fraction:v1",
+    "incident_id": "d41f6376-59cc-5aa3-b9fc-159d83705e8a",
+    "detected_at": "2026-10-18T12:17:47.292701Z"
+  },
+  "tests": {
+    "phase1_backend": 13,
+    "dashboard": 22,
+    "total_passed": 94,
+    "existing_analytics_storage": 53,
+    "existing_api": 6
+  },
+  "preserved_volumes": [
+    "opentelemetry-demo_eios-pgdata",
+    "opentelemetry-demo_eios-models"
+  ],
+  "live_verification_finished_at": "2026-10-18T12:17:48.734103+00:00"
+}

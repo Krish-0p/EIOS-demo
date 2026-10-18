@@ -1,0 +1,818 @@
+﻿{
+    "date":  "2026-10-18",
+    "phase":  "Phase 2",
+    "migration":  {
+                      "duration_seconds":  72.59,
+                      "preserved":  {
+                                        "events":  {
+                                                       "rows":  96826,
+                                                       "sha256":  "72a29923870640e5f776f58036988f6ad6fba9076da30b36d1c2a8feacdac1c1"
+                                                   },
+                                        "incidents":  {
+                                                          "rows":  1612,
+                                                          "sha256":  "76fd8fb7ef00a56f26ed7933425f863386f654ba3896958899f6c18be60524df"
+                                                      },
+                                        "cases":  {
+                                                      "rows":  68,
+                                                      "sha256":  "65f4bcfe8700e38b2808c5380af7474325d6854663cd15f853f6caf8dee7f6fe"
+                                                  },
+                                        "approvals":  {
+                                                          "rows":  0,
+                                                          "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                                      },
+                                        "fault_windows":  {
+                                                              "rows":  23,
+                                                              "sha256":  "1adb12e67e0953a385a42f60c7f66781d876aa66b8808a64e5f2c0106b7f2e26"
+                                                          },
+                                        "intelligence_insights":  {
+                                                                      "rows":  1388,
+                                                                      "sha256":  "c55cc2012e833c6c16befc42161160677a8096e4343e38f9338bc9e630d4a2e2"
+                                                                  },
+                                        "intelligence_forecasts":  {
+                                                                       "rows":  24452,
+                                                                       "sha256":  "8508897b356727bb9854880fac0a5ad1fc6e3184b7fbabef66721c0488105721"
+                                                                   },
+                                        "model_registry":  {
+                                                               "rows":  0,
+                                                               "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                                           },
+                                        "evaluation_runs":  {
+                                                                "rows":  0,
+                                                                "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                                            },
+                                        "feature_windows":  {
+                                                                "rows":  12328,
+                                                                "sha256":  "d4b001d507bc7bee4feda00d478fbd8d6b2f01d6b83f44bd1a36da994eda91a5"
+                                                            },
+                                        "event_original_values":  "db8bebfc25dddb03b6233feaf023a4471a905d1b34615f1ec836c545f4980646"
+                                    },
+                      "live":  true,
+                      "all_original_values_preserved":  true,
+                      "migration_versions":  [
+                                                 "intelligence-v1",
+                                                 "phase1-v1",
+                                                 "phase2-v1"
+                                             ]
+                  },
+    "experiment":  {
+                       "started_at":  "2026-10-18T13:23:17.303344+00:00",
+                       "preparation":  {
+                                           "original_paymentUnreachable":  "on",
+                                           "payment_fault_temporarily_disabled_at":  "2026-10-18T13:23:17.334368+00:00",
+                                           "original_payment_fault_restored_at":  "2026-10-18T13:24:55.265543+00:00",
+                                           "restored_paymentUnreachable":  "on"
+                                       },
+                       "checks":  {
+                                      "baseline":  {
+                                                       "mode":  "baseline",
+                                                       "started_at":  "2026-10-18T13:23:44.205442+00:00",
+                                                       "session_validated":  true,
+                                                       "counts_before":  {
+                                                                             "events":  98551,
+                                                                             "incidents":  1653,
+                                                                             "feature_windows":  12699,
+                                                                             "intelligence_insights":  1429,
+                                                                             "cases":  68,
+                                                                             "approvals":  0
+                                                                         },
+                                                       "sources":  [
+                                                                       {
+                                                                           "kind":  "jaeger",
+                                                                           "state":  "connected",
+                                                                           "connection_state":  "connected",
+                                                                           "freshness":  "fresh",
+                                                                           "checked_at":  "2026-10-18T13:23:32.361990+00:00",
+                                                                           "last_data_at":  "2026-10-18T13:23:30.621024+00:00",
+                                                                           "last_error":  null
+                                                                       },
+                                                                       {
+                                                                           "kind":  "kafka",
+                                                                           "state":  "connected",
+                                                                           "connection_state":  "connected",
+                                                                           "freshness":  "fresh",
+                                                                           "checked_at":  "2026-10-18T13:23:37.913647+00:00",
+                                                                           "last_data_at":  "2026-10-18T13:23:38.329000+00:00",
+                                                                           "last_error":  null
+                                                                       },
+                                                                       {
+                                                                           "kind":  "opensearch",
+                                                                           "state":  "connected",
+                                                                           "connection_state":  "connected",
+                                                                           "freshness":  "fresh",
+                                                                           "checked_at":  "2026-10-18T13:23:32.412282+00:00",
+                                                                           "last_data_at":  "2026-10-18T13:23:30.704029+00:00",
+                                                                           "last_error":  null
+                                                                       },
+                                                                       {
+                                                                           "kind":  "prometheus",
+                                                                           "state":  "connected",
+                                                                           "connection_state":  "connected",
+                                                                           "freshness":  "fresh",
+                                                                           "checked_at":  "2026-10-18T13:23:40.236773+00:00",
+                                                                           "last_data_at":  "2026-10-18T13:23:29.259000+00:00",
+                                                                           "last_error":  null
+                                                                       }
+                                                                   ],
+                                                       "metric_example":  {
+                                                                              "event_id":  "b6475a87-296c-4913-9ef3-c7f6e7fc1bde",
+                                                                              "service_id":  "7ca05049-9579-5904-b4d7-f3ad3df07efd",
+                                                                              "service_name":  "checkout",
+                                                                              "signal_type":  "metric",
+                                                                              "source_type":  "prometheus",
+                                                                              "timestamp":  "2026-10-18T13:23:38.821718+00:00",
+                                                                              "freshness":  "fresh",
+                                                                              "raw_ref":  "prometheus:server-red:checkout:2026-10-18T13:22:47.669000+00:00"
+                                                                          },
+                                                       "business_event_example":  {
+                                                                                      "event_id":  "b83efe42-f1cd-5263-b451-4340d8490016",
+                                                                                      "service_id":  "7ca05049-9579-5904-b4d7-f3ad3df07efd",
+                                                                                      "service_name":  "checkout",
+                                                                                      "signal_type":  "business_event",
+                                                                                      "source_type":  "kafka",
+                                                                                      "timestamp":  "2026-10-18T13:23:38.329000+00:00",
+                                                                                      "raw_ref":  "kafka:orders:0:718"
+                                                                                  },
+                                                       "trace":  {
+                                                                     "state":  "connected",
+                                                                     "records":  3,
+                                                                     "service_id":  "5de0efae-e1e4-5151-ad74-c2abcc5a52e6",
+                                                                     "raw_ref":  "jaeger:trace:91566d5605b26337afa0a30512ed3a54:span:e218c1243af0ac8c",
+                                                                     "observed_at":  "2026-10-18T13:23:39.214631+00:00"
+                                                                 },
+                                                       "log":  {
+                                                                   "state":  "connected",
+                                                                   "records":  3,
+                                                                   "service_id":  "3f7c480c-ae7f-5c2a-949c-2aa25e426268",
+                                                                   "raw_ref":  "opensearch:otel-logs-2026-10-18:zEUuT6EBARyXMssprots",
+                                                                   "observed_at":  "2026-10-18T13:23:41.593092+00:00"
+                                                               },
+                                                       "runtime_owner_mapping":  {
+                                                                                     "application_id":  "15a91729-4ab0-4a45-9ba6-629270c93328",
+                                                                                     "service_names":  [
+                                                                                                           "eios-dashboard",
+                                                                                                           "eios-orchestrator"
+                                                                                                       ],
+                                                                                     "records":  5
+                                                                                 },
+                                                       "legacy_apis":  {
+                                                                           "services":  37,
+                                                                           "graph_available":  true,
+                                                                           "intelligence":  {
+                                                                                                "state":  "learning",
+                                                                                                "worker_alive":  true,
+                                                                                                "worker":  {
+                                                                                                               "state":  "ready",
+                                                                                                               "active_models":  0,
+                                                                                                               "fresh_services":  33,
+                                                                                                               "stale_services":  30,
+                                                                                                               "feature_version":  "2.0",
+                                                                                                               "last_analysis_at":  "2026-10-18T13:23:39.468120+00:00",
+                                                                                                               "lateness_seconds":  90,
+                                                                                                               "scored_windows_this_cycle":  0,
+                                                                                                               "abstained_windows_this_cycle":  0
+                                                                                                           },
+                                                                                                "active_models":  [
+
+                                                                                                                  ],
+                                                                                                "fresh_services":  [
+                                                                                                                       "accounting",
+                                                                                                                       "ad",
+                                                                                                                       "admiring_golick",
+                                                                                                                       "astronomy-db",
+                                                                                                                       "cart",
+                                                                                                                       "checkout",
+                                                                                                                       "currency",
+                                                                                                                       "eios-detect",
+                                                                                                                       "eios-ingest",
+                                                                                                                       "eios-intelligence",
+                                                                                                                       "eios-postgres",
+                                                                                                                       "email",
+                                                                                                                       "flagd",
+                                                                                                                       "flagd-ui",
+                                                                                                                       "fraud-detection",
+                                                                                                                       "frontend",
+                                                                                                                       "frontend-proxy",
+                                                                                                                       "grafana",
+                                                                                                                       "image-provider",
+                                                                                                                       "jaeger",
+                                                                                                                       "kafka",
+                                                                                                                       "load-generator",
+                                                                                                                       "opamp-server",
+                                                                                                                       "opensearch",
+                                                                                                                       "otel-collector",
+                                                                                                                       "payment",
+                                                                                                                       "product-catalog",
+                                                                                                                       "prometheus",
+                                                                                                                       "quote",
+                                                                                                                       "recommendation",
+                                                                                                                       "shipping",
+                                                                                                                       "telemetry-docs",
+                                                                                                                       "valkey-cart"
+                                                                                                                   ],
+                                                                                                "stale_services":  [
+                                                                                                                       "admiring_thompson",
+                                                                                                                       "angry_lewin",
+                                                                                                                       "boring_hoover",
+                                                                                                                       "clever_agnesi",
+                                                                                                                       "crazy_curran",
+                                                                                                                       "dazzling_elbakyan",
+                                                                                                                       "dazzling_greider",
+                                                                                                                       "eios-dashboard",
+                                                                                                                       "eios-intelligence-test-4c11a596",
+                                                                                                                       "eios-intelligence-test-a580d19e",
+                                                                                                                       "eios-intelligence-test-postgres",
+                                                                                                                       "eios-orchestrator",
+                                                                                                                       "eios-phase1-live-check",
+                                                                                                                       "flamboyant_faraday",
+                                                                                                                       "friendly_murdock",
+                                                                                                                       "friendly_shannon",
+                                                                                                                       "gallant_buck",
+                                                                                                                       "gracious_joliot",
+                                                                                                                       "happy_herschel",
+                                                                                                                       "jovial_goldwasser",
+                                                                                                                       "jovial_hopper",
+                                                                                                                       "jovial_pasteur",
+                                                                                                                       "loving_lovelace",
+                                                                                                                       "mystifying_goldwasser",
+                                                                                                                       "nervous_gates",
+                                                                                                                       "sharp_keldysh",
+                                                                                                                       "sharp_poitras",
+                                                                                                                       "vigilant_khorana",
+                                                                                                                       "xenodochial_chatelet",
+                                                                                                                       "zen_shannon"
+                                                                                                                   ],
+                                                                                                "training_required":  true,
+                                                                                                "feature_version":  "2.0",
+                                                                                                "services_without_active_model":  [
+                                                                                                                                      "accounting",
+                                                                                                                                      "ad",
+                                                                                                                                      "admiring_golick",
+                                                                                                                                      "astronomy-db",
+                                                                                                                                      "cart",
+                                                                                                                                      "checkout",
+                                                                                                                                      "currency",
+                                                                                                                                      "eios-detect",
+                                                                                                                                      "eios-ingest",
+                                                                                                                                      "eios-intelligence",
+                                                                                                                                      "eios-postgres",
+                                                                                                                                      "email",
+                                                                                                                                      "flagd",
+                                                                                                                                      "flagd-ui",
+                                                                                                                                      "fraud-detection",
+                                                                                                                                      "frontend",
+                                                                                                                                      "frontend-proxy",
+                                                                                                                                      "grafana",
+                                                                                                                                      "image-provider",
+                                                                                                                                      "jaeger",
+                                                                                                                                      "kafka",
+                                                                                                                                      "load-generator",
+                                                                                                                                      "opamp-server",
+                                                                                                                                      "opensearch",
+                                                                                                                                      "otel-collector",
+                                                                                                                                      "payment",
+                                                                                                                                      "product-catalog",
+                                                                                                                                      "prometheus",
+                                                                                                                                      "quote",
+                                                                                                                                      "recommendation",
+                                                                                                                                      "shipping",
+                                                                                                                                      "telemetry-docs",
+                                                                                                                                      "valkey-cart"
+                                                                                                                                  ],
+                                                                                                "score_meaning":  "Unusualness, not failure probability",
+                                                                                                "pending_notifications":  0
+                                                                                            }
+                                                                       },
+                                                       "counts_after":  {
+                                                                            "events":  98551,
+                                                                            "incidents":  1653,
+                                                                            "feature_windows":  12699,
+                                                                            "intelligence_insights":  1429,
+                                                                            "cases":  68,
+                                                                            "approvals":  0
+                                                                        },
+                                                       "latest_incident":  {
+                                                                               "incident_id":  "b6078078-11f1-5d32-a11a-31172be8d925",
+                                                                               "detector":  "kpi:latency_p95_ms:v1",
+                                                                               "detected_at":  "2026-10-18 13:21:55.760133+00:00",
+                                                                               "application_id":  "6b42866e-e214-57e4-a7bd-e0ce18ade732"
+                                                                           },
+                                                       "latest_window":  {
+                                                                             "service":  "accounting",
+                                                                             "window_end":  "2026-10-18 13:22:00+00:00",
+                                                                             "application_id":  "6b42866e-e214-57e4-a7bd-e0ce18ade732"
+                                                                         },
+                                                       "published_identity_matches_database":  {
+                                                                                                   "event_id":  "a2ec5a4a-d866-43e5-9e26-792c5c834b1d",
+                                                                                                   "application_id":  "6b42866e-e214-57e4-a7bd-e0ce18ade732",
+                                                                                                   "service_id":  "62892969-3759-52cb-b9d5-00fa2490c474",
+                                                                                                   "wire_app":  "6b42866e-e214-57e4-a7bd-e0ce18ade732",
+                                                                                                   "wire_service":  "62892969-3759-52cb-b9d5-00fa2490c474",
+                                                                                                   "published_at":  "2026-10-18 13:23:41.275756+00:00"
+                                                                                               },
+                                                       "finished_at":  "2026-10-18T13:23:45.110388+00:00"
+                                                   },
+                                      "source-down":  {
+                                                          "mode":  "source-down",
+                                                          "started_at":  "2026-10-18T13:23:48.132220+00:00",
+                                                          "session_validated":  true,
+                                                          "counts_before":  {
+                                                                                "events":  98551,
+                                                                                "incidents":  1654,
+                                                                                "feature_windows":  12699,
+                                                                                "intelligence_insights":  1430,
+                                                                                "cases":  68,
+                                                                                "approvals":  0
+                                                                            },
+                                                          "sources":  [
+                                                                          {
+                                                                              "kind":  "jaeger",
+                                                                              "state":  "connected",
+                                                                              "connection_state":  "connected",
+                                                                              "freshness":  "fresh",
+                                                                              "checked_at":  "2026-10-18T13:24:02.441428+00:00",
+                                                                              "last_data_at":  "2026-10-18T13:24:00.537699+00:00",
+                                                                              "last_error":  null
+                                                                          },
+                                                                          {
+                                                                              "kind":  "kafka",
+                                                                              "state":  "connected",
+                                                                              "connection_state":  "connected",
+                                                                              "freshness":  "fresh",
+                                                                              "checked_at":  "2026-10-18T13:24:08.527458+00:00",
+                                                                              "last_data_at":  "2026-10-18T13:24:21.888000+00:00",
+                                                                              "last_error":  null
+                                                                          },
+                                                                          {
+                                                                              "kind":  "opensearch",
+                                                                              "state":  "connected",
+                                                                              "connection_state":  "connected",
+                                                                              "freshness":  "fresh",
+                                                                              "checked_at":  "2026-10-18T13:24:02.506702+00:00",
+                                                                              "last_data_at":  "2026-10-18T13:24:01.054770+00:00",
+                                                                              "last_error":  null
+                                                                          },
+                                                                          {
+                                                                              "kind":  "prometheus",
+                                                                              "state":  "disconnected",
+                                                                              "connection_state":  "disconnected",
+                                                                              "freshness":  "fresh",
+                                                                              "checked_at":  "2026-10-18T13:24:21.758665+00:00",
+                                                                              "last_data_at":  "2026-10-18T13:23:29.259000+00:00",
+                                                                              "last_error":  "Partial metric collection failed"
+                                                                          }
+                                                                      ],
+                                                          "kafka_still_observed":  "connected",
+                                                          "counts_after":  {
+                                                                               "events":  98557,
+                                                                               "incidents":  1654,
+                                                                               "feature_windows":  12699,
+                                                                               "intelligence_insights":  1430,
+                                                                               "cases":  68,
+                                                                               "approvals":  0
+                                                                           },
+                                                          "latest_incident":  {
+                                                                                  "incident_id":  "4377e979-b420-4f96-a7c6-ac7649cb15b7",
+                                                                                  "detector":  "rule:memory_above_92",
+                                                                                  "detected_at":  "2026-10-18 13:23:47.297216+00:00",
+                                                                                  "application_id":  "6b42866e-e214-57e4-a7bd-e0ce18ade732"
+                                                                              },
+                                                          "latest_window":  {
+                                                                                "service":  "accounting",
+                                                                                "window_end":  "2026-10-18 13:22:00+00:00",
+                                                                                "application_id":  "6b42866e-e214-57e4-a7bd-e0ce18ade732"
+                                                                            },
+                                                          "published_identity_matches_database":  {
+                                                                                                      "event_id":  "ee06dc5a-b3cf-518b-9b3f-c8d70fd97908",
+                                                                                                      "application_id":  "6b42866e-e214-57e4-a7bd-e0ce18ade732",
+                                                                                                      "service_id":  "7ca05049-9579-5904-b4d7-f3ad3df07efd",
+                                                                                                      "wire_app":  "6b42866e-e214-57e4-a7bd-e0ce18ade732",
+                                                                                                      "wire_service":  "7ca05049-9579-5904-b4d7-f3ad3df07efd",
+                                                                                                      "published_at":  "2026-10-18 13:24:30.373039+00:00"
+                                                                                                  },
+                                                          "finished_at":  "2026-10-18T13:24:30.684199+00:00"
+                                                      },
+                                      "recovery":  {
+                                                       "mode":  "recovery",
+                                                       "started_at":  "2026-10-18T13:24:32.104978+00:00",
+                                                       "session_validated":  true,
+                                                       "counts_before":  {
+                                                                             "events":  98557,
+                                                                             "incidents":  1654,
+                                                                             "feature_windows":  12699,
+                                                                             "intelligence_insights":  1430,
+                                                                             "cases":  68,
+                                                                             "approvals":  0
+                                                                         },
+                                                       "sources":  [
+                                                                       {
+                                                                           "kind":  "jaeger",
+                                                                           "state":  "connected",
+                                                                           "connection_state":  "connected",
+                                                                           "freshness":  "fresh",
+                                                                           "checked_at":  "2026-10-18T13:24:32.533579+00:00",
+                                                                           "last_data_at":  "2026-10-18T13:24:30.951267+00:00",
+                                                                           "last_error":  null
+                                                                       },
+                                                                       {
+                                                                           "kind":  "kafka",
+                                                                           "state":  "disconnected",
+                                                                           "connection_state":  "disconnected",
+                                                                           "freshness":  "fresh",
+                                                                           "checked_at":  "2026-10-18T13:24:40.849653+00:00",
+                                                                           "last_data_at":  "2026-10-18T13:24:46.489000+00:00",
+                                                                           "last_error":  "Broker watermark check failed"
+                                                                       },
+                                                                       {
+                                                                           "kind":  "opensearch",
+                                                                           "state":  "connected",
+                                                                           "connection_state":  "connected",
+                                                                           "freshness":  "fresh",
+                                                                           "checked_at":  "2026-10-18T13:24:32.572794+00:00",
+                                                                           "last_data_at":  "2026-10-18T13:24:31.200148+00:00",
+                                                                           "last_error":  null
+                                                                       },
+                                                                       {
+                                                                           "kind":  "prometheus",
+                                                                           "state":  "connected",
+                                                                           "connection_state":  "connected",
+                                                                           "freshness":  "fresh",
+                                                                           "checked_at":  "2026-10-18T13:24:53.766908+00:00",
+                                                                           "last_data_at":  "2026-10-18T13:24:49.253000+00:00",
+                                                                           "last_error":  null
+                                                                       }
+                                                                   ],
+                                                       "metric_example":  {
+                                                                              "event_id":  "5488d302-16ed-4d73-96e6-bd8770596b4f",
+                                                                              "service_id":  "7ca05049-9579-5904-b4d7-f3ad3df07efd",
+                                                                              "service_name":  "checkout",
+                                                                              "signal_type":  "metric",
+                                                                              "source_type":  "prometheus",
+                                                                              "timestamp":  "2026-10-18T13:24:51.771055+00:00",
+                                                                              "freshness":  "fresh",
+                                                                              "raw_ref":  "prometheus:server-red:checkout:2026-10-18T13:24:47.660000+00:00"
+                                                                          },
+                                                       "business_event_example":  {
+                                                                                      "event_id":  "915b4f1a-8798-58d4-bb96-f5ee69f38c5c",
+                                                                                      "service_id":  "7ca05049-9579-5904-b4d7-f3ad3df07efd",
+                                                                                      "service_name":  "checkout",
+                                                                                      "signal_type":  "business_event",
+                                                                                      "source_type":  "kafka",
+                                                                                      "timestamp":  "2026-10-18T13:24:46.489000+00:00",
+                                                                                      "raw_ref":  "kafka:orders:0:724"
+                                                                                  },
+                                                       "trace":  {
+                                                                     "state":  "connected",
+                                                                     "records":  3,
+                                                                     "service_id":  "5de0efae-e1e4-5151-ad74-c2abcc5a52e6",
+                                                                     "raw_ref":  "jaeger:trace:32204ab8d3930b0c0325e717daa2da24:span:e74fab7d11705637",
+                                                                     "observed_at":  "2026-10-18T13:24:46.922281+00:00"
+                                                                 },
+                                                       "log":  {
+                                                                   "state":  "connected",
+                                                                   "records":  3,
+                                                                   "service_id":  "3f7c480c-ae7f-5c2a-949c-2aa25e426268",
+                                                                   "raw_ref":  "opensearch:otel-logs-2026-10-18:jEUvT6EBARyXMsspuJVg",
+                                                                   "observed_at":  "2026-10-18T13:24:49.831488+00:00"
+                                                               },
+                                                       "runtime_owner_mapping":  {
+                                                                                     "application_id":  "15a91729-4ab0-4a45-9ba6-629270c93328",
+                                                                                     "service_names":  [
+                                                                                                           "eios-dashboard",
+                                                                                                           "eios-orchestrator"
+                                                                                                       ],
+                                                                                     "records":  5
+                                                                                 },
+                                                       "legacy_apis":  {
+                                                                           "services":  37,
+                                                                           "graph_available":  true,
+                                                                           "intelligence":  {
+                                                                                                "state":  "learning",
+                                                                                                "worker_alive":  true,
+                                                                                                "worker":  {
+                                                                                                               "state":  "ready",
+                                                                                                               "active_models":  0,
+                                                                                                               "fresh_services":  33,
+                                                                                                               "stale_services":  30,
+                                                                                                               "feature_version":  "2.0",
+                                                                                                               "last_analysis_at":  "2026-10-18T13:24:39.616625+00:00",
+                                                                                                               "lateness_seconds":  90,
+                                                                                                               "scored_windows_this_cycle":  0,
+                                                                                                               "abstained_windows_this_cycle":  0
+                                                                                                           },
+                                                                                                "active_models":  [
+
+                                                                                                                  ],
+                                                                                                "fresh_services":  [
+                                                                                                                       "accounting",
+                                                                                                                       "ad",
+                                                                                                                       "admiring_golick",
+                                                                                                                       "astronomy-db",
+                                                                                                                       "cart",
+                                                                                                                       "checkout",
+                                                                                                                       "currency",
+                                                                                                                       "eios-detect",
+                                                                                                                       "eios-ingest",
+                                                                                                                       "eios-intelligence",
+                                                                                                                       "eios-postgres",
+                                                                                                                       "email",
+                                                                                                                       "flagd",
+                                                                                                                       "flagd-ui",
+                                                                                                                       "fraud-detection",
+                                                                                                                       "frontend",
+                                                                                                                       "frontend-proxy",
+                                                                                                                       "grafana",
+                                                                                                                       "image-provider",
+                                                                                                                       "jaeger",
+                                                                                                                       "kafka",
+                                                                                                                       "load-generator",
+                                                                                                                       "opamp-server",
+                                                                                                                       "opensearch",
+                                                                                                                       "otel-collector",
+                                                                                                                       "payment",
+                                                                                                                       "product-catalog",
+                                                                                                                       "prometheus",
+                                                                                                                       "quote",
+                                                                                                                       "recommendation",
+                                                                                                                       "shipping",
+                                                                                                                       "telemetry-docs",
+                                                                                                                       "valkey-cart"
+                                                                                                                   ],
+                                                                                                "stale_services":  [
+                                                                                                                       "admiring_thompson",
+                                                                                                                       "angry_lewin",
+                                                                                                                       "boring_hoover",
+                                                                                                                       "clever_agnesi",
+                                                                                                                       "crazy_curran",
+                                                                                                                       "dazzling_elbakyan",
+                                                                                                                       "dazzling_greider",
+                                                                                                                       "eios-dashboard",
+                                                                                                                       "eios-intelligence-test-4c11a596",
+                                                                                                                       "eios-intelligence-test-a580d19e",
+                                                                                                                       "eios-intelligence-test-postgres",
+                                                                                                                       "eios-orchestrator",
+                                                                                                                       "eios-phase1-live-check",
+                                                                                                                       "flamboyant_faraday",
+                                                                                                                       "friendly_murdock",
+                                                                                                                       "friendly_shannon",
+                                                                                                                       "gallant_buck",
+                                                                                                                       "gracious_joliot",
+                                                                                                                       "happy_herschel",
+                                                                                                                       "jovial_goldwasser",
+                                                                                                                       "jovial_hopper",
+                                                                                                                       "jovial_pasteur",
+                                                                                                                       "loving_lovelace",
+                                                                                                                       "mystifying_goldwasser",
+                                                                                                                       "nervous_gates",
+                                                                                                                       "sharp_keldysh",
+                                                                                                                       "sharp_poitras",
+                                                                                                                       "vigilant_khorana",
+                                                                                                                       "xenodochial_chatelet",
+                                                                                                                       "zen_shannon"
+                                                                                                                   ],
+                                                                                                "training_required":  true,
+                                                                                                "feature_version":  "2.0",
+                                                                                                "services_without_active_model":  [
+                                                                                                                                      "accounting",
+                                                                                                                                      "ad",
+                                                                                                                                      "admiring_golick",
+                                                                                                                                      "astronomy-db",
+                                                                                                                                      "cart",
+                                                                                                                                      "checkout",
+                                                                                                                                      "currency",
+                                                                                                                                      "eios-detect",
+                                                                                                                                      "eios-ingest",
+                                                                                                                                      "eios-intelligence",
+                                                                                                                                      "eios-postgres",
+                                                                                                                                      "email",
+                                                                                                                                      "flagd",
+                                                                                                                                      "flagd-ui",
+                                                                                                                                      "fraud-detection",
+                                                                                                                                      "frontend",
+                                                                                                                                      "frontend-proxy",
+                                                                                                                                      "grafana",
+                                                                                                                                      "image-provider",
+                                                                                                                                      "jaeger",
+                                                                                                                                      "kafka",
+                                                                                                                                      "load-generator",
+                                                                                                                                      "opamp-server",
+                                                                                                                                      "opensearch",
+                                                                                                                                      "otel-collector",
+                                                                                                                                      "payment",
+                                                                                                                                      "product-catalog",
+                                                                                                                                      "prometheus",
+                                                                                                                                      "quote",
+                                                                                                                                      "recommendation",
+                                                                                                                                      "shipping",
+                                                                                                                                      "telemetry-docs",
+                                                                                                                                      "valkey-cart"
+                                                                                                                                  ],
+                                                                                                "score_meaning":  "Unusualness, not failure probability",
+                                                                                                "pending_notifications":  11
+                                                                                            }
+                                                                       },
+                                                       "counts_after":  {
+                                                                            "events":  98641,
+                                                                            "incidents":  1663,
+                                                                            "feature_windows":  12731,
+                                                                            "intelligence_insights":  1439,
+                                                                            "cases":  68,
+                                                                            "approvals":  0
+                                                                        },
+                                                       "latest_incident":  {
+                                                                               "incident_id":  "15e1d8b3-e24a-5941-8efa-1a24133bc293",
+                                                                               "detector":  "kpi:latency_p95_ms:v1",
+                                                                               "detected_at":  "2026-10-18 13:24:42.758563+00:00",
+                                                                               "application_id":  "6b42866e-e214-57e4-a7bd-e0ce18ade732"
+                                                                           },
+                                                       "latest_window":  {
+                                                                             "service":  "accounting",
+                                                                             "window_end":  "2026-10-18 13:23:00+00:00",
+                                                                             "application_id":  "6b42866e-e214-57e4-a7bd-e0ce18ade732"
+                                                                         },
+                                                       "published_identity_matches_database":  {
+                                                                                                   "event_id":  "9ba751a9-0958-4fe0-b62b-34ef214be04b",
+                                                                                                   "application_id":  "6b42866e-e214-57e4-a7bd-e0ce18ade732",
+                                                                                                   "service_id":  "6febe8e3-5c32-5eb7-9bbb-48613ccf5d35",
+                                                                                                   "wire_app":  "6b42866e-e214-57e4-a7bd-e0ce18ade732",
+                                                                                                   "wire_service":  "6febe8e3-5c32-5eb7-9bbb-48613ccf5d35",
+                                                                                                   "published_at":  "2026-10-18 13:24:54.946790+00:00"
+                                                                                               },
+                                                       "finished_at":  "2026-10-18T13:24:55.033818+00:00"
+                                                   }
+                                  },
+                       "source_stop_started_at":  "2026-10-18T13:23:45.315680+00:00",
+                       "source_stopped_at":  "2026-10-18T13:23:46.501954+00:00",
+                       "source_restarted_at":  "2026-10-18T13:24:31.166545+00:00",
+                       "success":  true,
+                       "finished_at":  "2026-10-18T13:24:55.275426+00:00"
+                   },
+    "final":  {
+                  "checked_at":  "2026-10-18 13:29:48.352501+00:00",
+                  "sources":  [
+                                  {
+                                      "source_id":  "0779419e-a8ae-532a-9485-1ef12d1deafb",
+                                      "application_id":  "15a91729-4ab0-4a45-9ba6-629270c93328",
+                                      "kind":  "prometheus",
+                                      "endpoint":  "http://prometheus:9090",
+                                      "scope":  {
+                                                    "runtime_names":  [
+                                                                          "eios-dashboard",
+                                                                          "eios-orchestrator"
+                                                                      ],
+                                                    "derived_binding":  true
+                                                },
+                                      "enabled":  true,
+                                      "checked_at":  "2026-10-18 13:29:33.609620+00:00",
+                                      "last_success_at":  "2026-10-18 13:29:33.609620+00:00",
+                                      "last_data_at":  "2026-10-18 13:29:29.234000+00:00",
+                                      "last_error":  null,
+                                      "freshness_seconds":  240,
+                                      "updated_at":  "2026-10-18 13:13:19.202715+00:00",
+                                      "state":  "connected",
+                                      "data_age_seconds":  19.052545,
+                                      "check_age_seconds":  14.676925,
+                                      "freshness_basis":  "source_sample",
+                                      "connection_state":  "connected",
+                                      "freshness":  "fresh"
+                                  },
+                                  {
+                                      "source_id":  "1730a2ac-f022-521f-aebd-cd7552e3dc62",
+                                      "application_id":  "6b42866e-e214-57e4-a7bd-e0ce18ade732",
+                                      "kind":  "jaeger",
+                                      "endpoint":  "http://jaeger:16686",
+                                      "scope":  {
+
+                                                },
+                                      "enabled":  true,
+                                      "checked_at":  "2026-10-18 13:29:34.294944+00:00",
+                                      "last_success_at":  "2026-10-18 13:29:34.294944+00:00",
+                                      "last_data_at":  "2026-10-18 13:29:31.004176+00:00",
+                                      "last_error":  null,
+                                      "freshness_seconds":  240,
+                                      "updated_at":  "2026-10-18 13:11:18.603107+00:00",
+                                      "state":  "connected",
+                                      "data_age_seconds":  17.282414,
+                                      "check_age_seconds":  13.991646,
+                                      "freshness_basis":  "source_sample",
+                                      "connection_state":  "connected",
+                                      "freshness":  "fresh"
+                                  },
+                                  {
+                                      "source_id":  "0dc46699-067c-53cc-afdf-d3133ab2508e",
+                                      "application_id":  "6b42866e-e214-57e4-a7bd-e0ce18ade732",
+                                      "kind":  "kafka",
+                                      "endpoint":  "kafka:9092",
+                                      "scope":  {
+                                                    "topic":  "orders"
+                                                },
+                                      "enabled":  true,
+                                      "checked_at":  "2026-10-18 13:29:40.792081+00:00",
+                                      "last_success_at":  "2026-10-18 13:29:40.792081+00:00",
+                                      "last_data_at":  "2026-10-18 13:29:40.791850+00:00",
+                                      "last_error":  null,
+                                      "freshness_seconds":  240,
+                                      "updated_at":  "2026-10-18 13:11:18.603107+00:00",
+                                      "state":  "connected",
+                                      "data_age_seconds":  7.494762,
+                                      "check_age_seconds":  7.494531,
+                                      "freshness_basis":  "broker_watermark_or_business_event",
+                                      "connection_state":  "connected",
+                                      "freshness":  "fresh"
+                                  },
+                                  {
+                                      "source_id":  "6814e1f1-2c6e-50a5-94f6-83b7aaa60bc4",
+                                      "application_id":  "6b42866e-e214-57e4-a7bd-e0ce18ade732",
+                                      "kind":  "opensearch",
+                                      "endpoint":  "http://opensearch:9200",
+                                      "scope":  {
+
+                                                },
+                                      "enabled":  true,
+                                      "checked_at":  "2026-10-18 13:29:34.281382+00:00",
+                                      "last_success_at":  "2026-10-18 13:29:34.281382+00:00",
+                                      "last_data_at":  "2026-10-18 13:29:33.047949+00:00",
+                                      "last_error":  null,
+                                      "freshness_seconds":  240,
+                                      "updated_at":  "2026-10-18 13:11:18.603107+00:00",
+                                      "state":  "connected",
+                                      "data_age_seconds":  15.238764,
+                                      "check_age_seconds":  14.005331,
+                                      "freshness_basis":  "source_sample",
+                                      "connection_state":  "connected",
+                                      "freshness":  "fresh"
+                                  },
+                                  {
+                                      "source_id":  "834af16d-410a-5f8f-b056-4ee4b7d73520",
+                                      "application_id":  "6b42866e-e214-57e4-a7bd-e0ce18ade732",
+                                      "kind":  "prometheus",
+                                      "endpoint":  "http://prometheus:9090",
+                                      "scope":  {
+
+                                                },
+                                      "enabled":  true,
+                                      "checked_at":  "2026-10-18 13:29:33.605504+00:00",
+                                      "last_success_at":  "2026-10-18 13:29:33.605504+00:00",
+                                      "last_data_at":  "2026-10-18 13:29:29.234000+00:00",
+                                      "last_error":  null,
+                                      "freshness_seconds":  240,
+                                      "updated_at":  "2026-10-18 13:11:18.603107+00:00",
+                                      "state":  "connected",
+                                      "data_age_seconds":  19.052736,
+                                      "check_age_seconds":  14.681232,
+                                      "freshness_basis":  "source_sample",
+                                      "connection_state":  "connected",
+                                      "freshness":  "fresh"
+                                  }
+                              ],
+                  "new_event_completeness":  [
+                                                 {
+                                                     "signal_type":  "business_event",
+                                                     "rows":  9,
+                                                     "incomplete":  0
+                                                 },
+                                                 {
+                                                     "signal_type":  "metric",
+                                                     "rows":  913,
+                                                     "incomplete":  0
+                                                 },
+                                                 {
+                                                     "signal_type":  "source_health",
+                                                     "rows":  12,
+                                                     "incomplete":  0
+                                                 }
+                                             ],
+                  "persisted_evidence":  [
+                                             {
+                                                 "signal_type":  "log",
+                                                 "rows":  6
+                                             },
+                                             {
+                                                 "signal_type":  "trace",
+                                                 "rows":  6
+                                             }
+                                         ],
+                  "intelligence_worker":  {
+                                              "value":  {
+                                                            "state":  "ready",
+                                                            "active_models":  0,
+                                                            "fresh_services":  32,
+                                                            "stale_services":  31,
+                                                            "feature_version":  "2.0",
+                                                            "last_analysis_at":  "2026-10-18T13:29:40.088695+00:00",
+                                                            "lateness_seconds":  90,
+                                                            "scored_windows_this_cycle":  0,
+                                                            "abstained_windows_this_cycle":  0
+                                                        },
+                                              "updated_at":  "2026-10-18 13:29:43.323840+00:00"
+                                          }
+              },
+    "tests":  {
+                  "phase2":  17,
+                  "phase1":  13,
+                  "intelligence_collectors_models":  55,
+                  "api_compatibility":  6,
+                  "dashboard":  25,
+                  "total":  116
+              },
+    "phase3_started":  false
+}

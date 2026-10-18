@@ -1,0 +1,65 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: eios-postgres-policy
+  namespace: eios
+spec:
+  podSelector:
+    matchLabels:
+      app: eios-postgres
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              eios-db-client: "true"
+      ports:
+        - port: 5432
+  egress: []
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: eios-orchestrator-policy
+  namespace: eios
+spec:
+  podSelector:
+    matchLabels:
+      app: eios-orchestrator
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: eios-dashboard
+      ports:
+        - port: 8000
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: eios-postgres
+      ports:
+        - port: 5432
+    - to: []
+      ports:
+        - port: 9092   # Kafka
+        - port: 53     # DNS
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: eios-workers-policy
+  namespace: eios
+spec:
+  podSelector:
+    matchLabels:
+      eios-worker: "true"
+  policyTypes: [Ingress, Egress]
+  ingress: []
+  egress:
+    - ports:
+        - port: 9092
+        - port: 5432
+        - port: 9090
+        - port: 53

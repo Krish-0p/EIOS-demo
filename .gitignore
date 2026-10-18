@@ -1,0 +1,5 @@
+.phase1/
+.phase2/
+**/.env
+**/.env.*
+!**/.env.example
